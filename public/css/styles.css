@@ -4,3 +4,175 @@
 *:after {
   box-sizing: border-box;
 }
+
+:root {
+  --primary-color: #ffffff;
+  --secondary-color: #1F1F1F;
+  --tertiary-color: #F5F5F5;
+  --accent-color: #007BFF;
+
+  --text-font: "Titillium Web", sans-serif;
+  --paragraph-font: "Roboto", sans-serif;
+  --heading-font: "Montserrat", sans-serif;
+}
+
+#top-header {
+  background-color: var(--primary-color);
+  font-family: var(--heading-font);
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 15vh;
+}
+
+#top-header a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.siteName {
+  font-size: 1.8rem;
+}
+
+#navBar {
+  background-color: var(--secondary-color);
+  font-family: var(--heading-font);
+  padding: 10px 20px;
+  margin: 0;
+  width: 100%;
+}
+
+#navBar ul{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+}
+
+#navBar ul li {
+  list-style: none;
+  color: var(--primary-color); 
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 10px;
+  margin-bottom: 30px;
+}
+
+h1 {
+  font-family: var(--heading-font);
+  font-size: 1.5rem;
+  color: var(--secondary-color);
+}
+
+.deloreanImg {
+  width: 300px;
+  height: auto;
+  margin-left: 100px;
+  position: relative;
+}
+
+.vehicle-info {
+  display: grid;
+  padding: 10px;
+  background-color: var(--secondary-color);
+  color: var(--tertiary-color);
+  border-radius: 10px;
+  width: 40%;
+  height: auto;
+  opacity: 0.9;
+  position: absolute;
+  margin-top: 120px;
+}
+
+.vehicle-info h2 {
+  font-family: var(--paragraph-font);
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.vehicle-info p {
+  font-family: var(--text-font);
+  font-size: 1rem;
+  margin: 2px 0;
+}
+
+.reviews {
+  display: grid;
+  padding: 10px;
+}
+
+.reviews ul {
+  padding: 0 20px;
+  margin: 0;
+  line-height: 1.5;
+  font-family: var(--text-font);
+}
+
+.reviews h2, .upgrades h2 {
+  font-family: var(--heading-font);
+  font-size: 1.5rem;
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+
+.upgrades {
+  display: grid;
+  padding: 10px;
+}
+
+.upgrade-container {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 2fr 2fr;
+  gap: 20px;
+}
+
+.upgrade-item {
+  display: grid;
+  align-content: space-between;
+  justify-items: center;
+  width: 100%;
+  height: 150px;
+  background-color: var(--secondary-color);
+}
+
+.upgrade-item img {
+  width: 100px;
+  padding: 20px;
+}
+
+.upgrade-item p {
+  background-color: var(--primary-color);
+  margin: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.upgrade-item a {
+  text-decoration: none;
+  font-family: var(--text-font);
+  font-size: 1.2rem;
+  color: var(--accent-color);
+}
+
+footer {
+  padding: 10px;
+  font-family: var(--paragraph-font);
+}
+
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1920px) {
+
+}
