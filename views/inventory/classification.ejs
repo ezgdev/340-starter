@@ -1,0 +1,15 @@
+<!-- The content heading -->
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else {
+    res.redirect('/')
+} %>
+
+
+<!-- A message block, An EJS code block, using a comment mark (#), disables this code  -->
+<%# messages() %>  
+
+
+<!-- inventory items display -->
+<%- grid %>
+
