@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head') %>
+    <title><%= title %></title>
+</head>
+<body>
+    <main>
+        <h1><%= item.inv_make %> <%= item.inv_model %> Details</h1>
+        <div class="inventory-detail">
+            <div class="inventory-image">
+                <% if (item.inv_image) { %>
+                    <img src="/images/vehicles/<%= item.inv_image %>" alt="<%= item.inv_make %> <%= item.inv_model %>">
+                <% } else { %>
+                    <img src="/images/vehicles/no-image.png" alt="No image available">
+                <% } %>
+            </div>
+            <div class="inventory-info">
+                <p><strong>Year:</strong> <%= item.inv_year %></p>
+                <p><strong>Description:</strong> <%= item.inv_description %></p>
+                <p><strong>Price:</strong> $<%= !isNaN(item.inv_price) ? Number(item.inv_price).toFixed(2) : 'N/A' %></p>
+                <p><strong>Color:</strong> <%= item.inv_color %></p>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
