@@ -1,19 +1,7 @@
-<% if (title) { %>
-<h1><%= title %></h1>
-<% } else { %>
-<h1>Error</h1>
-<% } %>
-
 <div class="error-message">
-    <p><%- message %></p>
-    <p>
-        Oops! Looks like something went wrong. But hey, even errors can have a sense
-        of humor!
-    </p>
-    <% if (message && message.includes('404')) { %>
-    <p>
-        404 - The page you are looking for must have taken a coffee break ☕️. Try
-        going back or checking the URL.
-    </p>
-    <% } %>
+    <h1>🚨 Error <%= status %> – <%= title %></h1>
+    <h2> <%= subtitle %> </h2>
+    <p><%= message %></p>
+    <p><%= suggestion %></p>
+    <a href="/">🏠 Go to homepage</a>
 </div>

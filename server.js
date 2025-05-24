@@ -34,23 +34,40 @@ app.use("/inv", inventoryRoute)
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
-  next({status: 404, message: 'Sorry, we appear to have lost that page.'})
-})
+  next({
+    status: 404,
+    title: 'Route Not Found',
+    subtitle: '🚗 Oops... You’ve veered off the road!',
+    message: 'Looks like this route doesn’t exist or your digital GPS got confused, but don’t worry — you’re still in the driver’s seat.',
+    suggestion: 'Head back to the homepage and hit the gas again.'
+  });
+});
 
 /* ***********************
 * Express Error Handler
 * Place after all other middleware
 *************************/
 app.use(async (err, req, res, next) => {
-  let nav = await utilities.getNav()
-  console.error(`Error at: "${req.originalUrl}": ${err.message}`)
-  if(err.status == 404){ message = err.message} else {message = 'Oh no! There was a crash. Maybe try a different route?'}
-  res.render("errors/error", {
-    title: err.status || 'Server Error',
+  let nav = await utilities.getNav();
+  const status = err.status || 500;
+
+  // Defaults for 500 if not provided
+  const title = err.title || 'Engine Trouble';
+  const subtitle = err.subtitle || '⚠️ Check engine light is on!';
+  const message = err.message || ' 🛠️ Something broke under the hood — and it’s not your fault.';
+  const suggestion = err.suggestion || 'Cruise back to the homepage or take a quick pit stop.';
+
+  console.error(`Error at: "${req.originalUrl}": ${message}`);
+
+  res.status(status).render("errors/error", {
+    title,
+    subtitle,
     message,
+    suggestion,
+    status,
     nav
-  })
-})
+  });
+});
 
 /* ***********************
  * Local Server Information
