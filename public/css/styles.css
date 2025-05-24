@@ -54,7 +54,11 @@
 
 #navBar ul li {
   list-style: none;
+}
+
+#navBar ul li a {
   color: var(--primary-color); 
+  text-decoration: none;
 }
 
 .container {
@@ -159,13 +163,76 @@ h1 {
 .upgrade-item a {
   text-decoration: none;
   font-family: var(--text-font);
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: var(--accent-color);
+  text-transform: uppercase;
+}
+
+#inv-display {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(2, 0.5fr);
+  gap: 5px;
+  padding: 0;
+}
+
+#inv-display img {
+  width: 180px;
+  height: auto;
+  border-radius: 10px;
+}
+
+#inv-display li {
+  display: grid;
+  list-style: none;
+  grid-template-rows: 1fr 0.5fr;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+#inv-display li a {
+  text-decoration: none;
+  font-family: var(--text-font);
+  font-size: 0.9rem;
+  color: var(--accent-color);
+  text-transform: uppercase;
+}
+
+.namePrice span {
+  font-family: var(--text-font);
+  font-weight: 600;
+}
+
+.inventory-detail {
+  display: grid;
+  padding: 10px 20px;
+}
+
+.inventory-detail img {
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+
+.inventory-info {
+  display: grid;
+  font-family: var(--text-font);
+  padding: 5px;
+  color: var(--secondary-color);
+  width: 100%;
+  height: auto;
+}
+
+.inv-price {
+  background-color: var(--tertiary-color);
+  padding: 10px 2px;
 }
 
 footer {
   padding: 10px;
   font-family: var(--paragraph-font);
+  text-align: center;
 }
 
 
@@ -187,7 +254,7 @@ footer {
     margin-top: 20px;
     margin-bottom: 20px;
     border: 5px solid var(--accent-color);
-    background-image: url('/images/site/checkerboard.jpg');
+    /* background-image: url('/images/site/checkerboard.jpg'); */
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;

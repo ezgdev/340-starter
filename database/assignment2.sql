@@ -33,3 +33,15 @@ SET
 	inv_image = REPLACE(inv_image, '/images', '/images/vehicles'),
 	inv_thumbnail = REPLACE(inv_thumbnail, '/images', '/images/vehicles');
 
+
+
+
+---------------------------------
+
+UPDATE inventory
+SET inv_make = REPLACE(inv_make, 'Aerocar International', 'Aerocar')
+WHERE inv_id = 7; 
+
+UPDATE inventory
+SET inv_model = REPLACE(inv_model, 'Aerocar', 'International')
+WHERE inv_id = 7; 
