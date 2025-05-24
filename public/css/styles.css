@@ -164,9 +164,12 @@ h1 {
   text-decoration: none;
   font-family: var(--text-font);
   font-size: 1rem;
-  color: var(--accent-color);
+  color: var(--secondary-color);
+  font-weight: 600;
   text-transform: uppercase;
 }
+
+/* Styles for Inventory Page */
 
 #inv-display {
   display: grid;
@@ -194,14 +197,20 @@ h1 {
   text-decoration: none;
   font-family: var(--text-font);
   font-size: 0.9rem;
-  color: var(--accent-color);
+  color: var(--secondary-color);
   text-transform: uppercase;
+}
+
+#inv-display h2 {
+  margin: 5px 0;
 }
 
 .namePrice span {
   font-family: var(--text-font);
   font-weight: 600;
 }
+
+/* Styles for details page */
 
 .inventory-detail {
   display: grid;
@@ -235,7 +244,6 @@ footer {
   text-align: center;
 }
 
-
 @media screen and (min-width: 768px) and (max-width: 1023px) {
   .deloreanImg {
     width: 500px;
@@ -245,6 +253,23 @@ footer {
   .vehicle-info {
     width: 20%;
   }
+
+  #inv-display img {
+    width: 280px;
+  }
+
+  #inv-display li a {
+    font-size: 1.1rem;
+  }
+
+  .namePrice span {
+    font-size: 1.1rem;
+  }
+
+  .inventory-info {
+  font-size: 1.2rem;
+  align-items: space-between;
+}
 }
 
 @media screen and (min-width: 1024px) and (max-width: 1920px) {
@@ -304,6 +329,44 @@ footer {
     grid-column: 1/2;
     grid-row: 1/2;
   }
+
+  /* Styles for Inventory Page */
+
+  h1 {
+    padding-left: 10px;
+  }
+
+  #inv-display {
+    grid-template-columns: repeat(3, 0.5fr);
+  }
+
+  #inv-display img {
+    width: 280px;
+  }
+
+  #inv-display li a {
+    font-size: 1.1rem;
+  }
+
+  .namePrice span {
+    font-size: 1.1rem;
+  }
+
+  /* Styles for details page */
+.inventory-detail {
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  column-gap: 15px;
+}
+
+.inventory-info {
+  font-size: 1.1rem;
+  align-items: space-between;
+}
+
+.inventory-info p {
+  margin: 10px 5px;
+}
 
   footer {
     background-color: white;
