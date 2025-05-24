@@ -174,7 +174,7 @@ h1 {
   display: grid;
   width: 80%;
   margin: 0 auto;
-  grid-template-columns: repeat(auto, 0.5fr);
+  grid-template-columns: repeat(1 , 0.5fr);
   gap: 10px;
   padding: 0;
 }
@@ -312,7 +312,6 @@ footer {
 
   .inventory-info {
   font-size: 1.2rem;
-  align-items: space-between;
 }
 }
 
@@ -416,7 +415,6 @@ footer {
 
 .inventory-info {
   font-size: 1.1rem;
-  align-items: space-between;
 }
 
 .inventory-info p {
