@@ -78,5 +78,4 @@ accountController.registerAccount = async function(req, res, next) {
     }
 }
 
-
 module.exports = accountController;
