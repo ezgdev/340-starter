@@ -68,6 +68,7 @@ accountController.registerAccount = async function(req, res, next) {
         res.status(201).render("account/login", {
         title: "Login",
         nav,
+        errors: null,
         })
     } else {
         req.flash("notice", "Sorry, the registration failed.")
