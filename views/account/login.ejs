@@ -6,23 +6,28 @@
     <% if (errors) { %>
         <ul class="notice">
         <% errors.array().forEach(error => { %>
-        <li><%= error.msg %></li>
+        <li>❌ <%= error.msg %></li>
         <%  }) %>
         </ul>
     <% } %>
 
     <form action="/account/login" method="POST" id="login-form">
-        <label for="email">Email:</label>
+        <label for="email">Email</label>
         <input type="email" id="email" name="account_email" value="<%= locals.account_email %>" required />
 
-        <label for="password">Password:</label>
-        <span>Remember that the password must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span>
+        <label for="password">Password</label>
+        <div>The password must be: 
+            <ul>
+                <li>at least 12 characters</li>
+                <li>contain at least 1 number, 1 capital letter and 1 special character</li>
+            </ul>
+        </div>
         <input type="password" id="password" name="account_password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required />
 
         <button type="submit">Login</button> 
     </form>
 
-    <p>Don't have an account? <a href="/account/register">Sign-up</a>.</p>
+    <p class="sign-up">Don't have an account? <a href="/account/register">Sign-up</a></p>
 </div>  
 
 

@@ -43,4 +43,43 @@ invCont.triggerError = async function (req, res, next) {
     throw new Error()
 }
 
+
+/* ***************************
+ *  Build inventory management view
+ * ************************** */
+invCont.buildManagementView = async function (req, res, next) {
+    let nav = await utilities.getNav()
+    const message = req.flash('message')
+    res.render("./inventory/management", {
+        title: "Inventory Management",
+        nav,
+        message,
+    })
+}
+
+/* ***************************
+ *  Build add classification view
+ * ************************** */
+invCont.buildAddClassificationView = async function (req, res, next) {
+    let nav = await utilities.getNav()
+    const message = req.flash('message')
+    res.render("./inventory/add-classification", {
+        title: "Add New Classification",
+        nav,
+        message,
+        errors: null,
+    })
+}
+
+/* ***************************
+ *  Build add inventory view
+ * ************************** */
+invCont.buildAddInventoryView = async function (req, res, next) {
+    let nav = await utilities.getNav()
+    res.render("./inventory/add-inventory", {
+        title: "Add New Inventory",
+        nav,
+    })
+}
+
 module.exports = invCont

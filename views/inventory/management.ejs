@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inventory Management</title>
+</head>
+<body>
+    <h1>Inventory Management</h1>
+    <!-- Inventory management content goes here -->
+    <% if (message && message.length > 0) { %>
+        <div class="flash-message">
+            <p><%= message %></p>
+        </div>
+    <% } %>
+
+    <nav class="management">
+        <ul>
+            <li><a href="/inv/add-classification">Add New Classification</a></li>
+            <li><a href="/inv/add-inventory">Add New Inventory</a></li>
+        </ul>
+    </nav>
+</body>
+</html>
