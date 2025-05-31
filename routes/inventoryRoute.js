@@ -2,6 +2,7 @@ const express = require("express")
 const router = new express.Router() 
 const invController = require("../controllers/invController")
 const utilities = require("../utilities")
+const validate = require("../utilities/data-validation")
 
 // Route to build inventory by classification view
 router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId));
@@ -17,6 +18,14 @@ router.get("/management", utilities.handleErrors(invController.buildManagementVi
 
 // Route to add new classification view
 router.get("/add-classification", utilities.handleErrors(invController.buildAddClassificationView))
+
+// POST route to add new classification with validation
+router.post(
+    "/add-classification",
+    validate.classificationRules(),
+    validate.checkClassificationData,
+    utilities.handleErrors(invController.addClassification)
+)
 
 // Route to add new inventory view
 router.get("/add-inventory", utilities.handleErrors(invController.buildAddInventoryView))

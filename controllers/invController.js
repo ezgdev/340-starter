@@ -82,4 +82,58 @@ invCont.buildAddInventoryView = async function (req, res, next) {
     })
 }
 
+/* ***************************
+ *  Add new classification post handler
+ * ************************** */
+invCont.addClassification = async function (req, res, next) {
+    try {
+        const { classification_name } = req.body
+        const existingClassifications = await invModel.getClassifications()
+        const exists = existingClassifications.some(
+        (c) => c.classification_name.toLowerCase() === classification_name.toLowerCase()
+)
+        if (exists) {
+            let nav = await utilities.getNav()
+            const message = "Classification name already exists."
+            res.render("inventory/add-classification", {
+                title: "Add New Classification",
+                nav,
+                message,
+                errors: null,
+                classification_name,
+            })
+            return
+        }
+        try {
+            const result = await invModel.addClassification(classification_name)
+            if (result) {
+                req.flash("message", `Classification "${classification_name}" added successfully.`)
+                res.redirect("/inv/management")
+            } else {
+                let nav = await utilities.getNav()
+                const message = "Failed to add classification."
+                res.render("inv/add-classification", {
+                    title: "Add New Classification",
+                    nav,
+                    message,
+                    errors: null,
+                    classification_name,
+                })
+            }
+        } catch (dbError) {
+            let nav = await utilities.getNav()
+            const message = "Database error: " + dbError.message
+            res.render("inv/add-classification", {
+                title: "Add New Classification",
+                nav,
+                message,
+                errors: null,
+                classification_name,
+            })
+        }
+    } catch (error) {
+        next(error)
+    }
+}
+
 module.exports = invCont

@@ -7,7 +7,9 @@
 <body>
     <h1><%= title %></h1>
 
-    <%- messages() %>
+    <% if (message) { %>
+        <div class="notice"><%= message %></div>
+    <% } %>
 
     <% if (errors) { %>
         <ul class="notice">
@@ -17,11 +19,11 @@
         </ul>
     <% } %>
     
-    <form action="/inventory/add-classification" method="post" id="add-classification">
+    <form action="/inv/add-classification" method="post" id="add-classification">
 
         <label>Classification Name</label>
         <div>Name must be alphabetic characters only</div>
-        <input type="text" id="nameCar" name="classification_name" placeholder="Type here" required>
+        <input type="text" id="nameCar" name="classification_name" placeholder="Type here" pattern="^[A-Za-z]+$" title="Only letters, no spaces or special characters." required>
 
         <button type="submit">Add Classification</button>
 
