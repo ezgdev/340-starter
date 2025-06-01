@@ -473,6 +473,7 @@ input:valid {
 
   #navBar ul li:hover {
     background-color: var(--accent-color);
+    border-radius: 10px;
   }
 
   .deloreanImg {
