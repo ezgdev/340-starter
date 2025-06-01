@@ -24,10 +24,18 @@ router.post(
     "/add-classification",
     validate.classificationRules(),
     validate.checkClassificationData,
-    utilities.handleErrors(invController.addClassification)
+    utilities.handleErrors(invController.addClassification)                                     
 )
 
 // Route to add new inventory view
 router.get("/add-inventory", utilities.handleErrors(invController.buildAddInventoryView))
+
+// POST route to add new vehicle with validation
+router.post(
+    "/add-inventory",
+    validate.inventoryRules(),
+    validate.checkInventoryData,
+    utilities.handleErrors(invController.addNewVehicle)                                     
+)
 
 module.exports = router;

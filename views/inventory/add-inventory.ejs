@@ -5,7 +5,53 @@
     <title><%= title %></title>
 </head>
 <body>
-    <h1>Add New Inventory</h1>
-    <p>This is a placeholder view for adding a new inventory item.</p>
+    <h1><%= title %></h1>
+
+    <% if (message) { %>
+        <div class="notice"><%= message %></div>
+    <% } %>
+
+    <% if (errors) { %>
+        <ul class="notice">
+        <% errors.array().forEach(error => { %>
+        <li>❌ <%= error.msg %></li>
+        <%  }) %>
+        </ul>
+    <% } %>
+
+    <form action="/inv/add-inventory" method="post" id="add-inventory">
+        <label for="classificationList">Classification</label>
+        <%- classificationList %>
+        
+        <label>Make</label>
+        <input type="text" id="inv_make" name="inv_make" placeholder="Min of 3 characters" title="Min of 3 characters." required>
+
+        <label>Model</label>
+        <input type="text" id="inv_model" name="inv_model" placeholder="Min of 3 characters" title="Min of 3 characters." required>
+
+        <label>Description</label>
+        <textarea name="inv_description" id="inv_description" placeholder="Type here" required></textarea>
+
+        <label>Image Path</label>
+        <input type="text" id="inv_image" name="inv_image" placeholder="Type here" required>
+
+        <label>Thumbnail Path</label>
+        <input type="text" id="inv_thumbnail" name="inv_thumbnail" placeholder="Type here" required>
+
+        <label>Price</label>
+        <input type="number" id="inv_price" name="inv_price" placeholder="Decimal of integer" required>
+
+        <label>Year</label>
+        <input type="number" id="inv_year" name="inv_year" placeholder="4-digit year" required>
+
+        <label>Miles</label>
+        <input type="number" id="inv_miles" name="inv_miles" placeholder="digits only" required>
+
+        <label>Color</label>
+        <input type="text" id="inv_color" name="inv_color" placeholder="Type here" required>
+
+        <button type="submit">Add Vechicle</button>
+
+    </form>
 </body>
 </html>

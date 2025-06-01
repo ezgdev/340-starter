@@ -76,9 +76,14 @@ invCont.buildAddClassificationView = async function (req, res, next) {
  * ************************** */
 invCont.buildAddInventoryView = async function (req, res, next) {
     let nav = await utilities.getNav()
+    const classificationList = await utilities.buildClassificationList()
+    const message = req.flash('message')
     res.render("./inventory/add-inventory", {
-        title: "Add New Inventory",
+        title: "Add New Vehicle",
         nav,
+        classificationList,
+        message: null,
+        errors: null,
     })
 }
 
@@ -90,8 +95,8 @@ invCont.addClassification = async function (req, res, next) {
         const { classification_name } = req.body
         const existingClassifications = await invModel.getClassifications()
         const exists = existingClassifications.some(
-        (c) => c.classification_name.toLowerCase() === classification_name.toLowerCase()
-)
+            (c) => c.classification_name.toLowerCase() === classification_name.toLowerCase()
+        )
         if (exists) {
             let nav = await utilities.getNav()
             const message = "Classification name already exists."
@@ -133,6 +138,76 @@ invCont.addClassification = async function (req, res, next) {
         }
     } catch (error) {
         next(error)
+    }
+}
+
+/* ***************************
+ *  Add new vehicle post handler
+ * ************************** */
+invCont.addNewVehicle = async function (req, res, next) {
+    try {
+        const {
+            inv_make,
+            inv_model,
+            inv_year,
+            inv_description,
+            inv_image,
+            inv_thumbnail,
+            inv_price,
+            inv_miles,
+            inv_color,
+            classification_id
+        } = req.body
+
+        const result = await invModel.addNewVehicle(
+            inv_make,
+            inv_model,
+            parseInt(inv_year),
+            inv_description,
+            inv_image,
+            inv_thumbnail,
+            parseFloat(inv_price),
+            parseInt(inv_miles),
+            inv_color,
+            parseInt(classification_id)
+        )
+
+        if (result) {
+            req.flash("message", `Vehicle "${inv_make} ${inv_model}" added successfully.`)
+            res.redirect("/inv/management")
+        } else {
+            let nav = await utilities.getNav()
+            const classificationList = await utilities.buildClassificationList(classification_id)
+            const message = "Failed to add vehicle."
+            res.render("inventory/add-inventory", {
+                title: "Add New Vehicle",
+                nav,
+                classificationList,
+                message,
+                errors: null,
+                inv_make,
+                inv_model,
+                inv_year,
+                inv_description,
+                inv_image,
+                inv_thumbnail,
+                inv_price,
+                inv_miles,
+                inv_color,
+                classification_id
+            })
+        }
+    } catch (error) {
+        let nav = await utilities.getNav()
+        const classificationList = await utilities.buildClassificationList()
+        const message = "Database error: " + error.message
+        res.render("inventory/add-inventory", {
+            title: "Add New Vehicle",
+            nav,
+            classificationList,
+            message,
+            errors: null,
+        })
     }
 }
 
