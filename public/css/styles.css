@@ -408,6 +408,10 @@ input:valid {
   cursor: pointer;
 }
 
+.flash-message {
+  font-family: var(--text-font);
+}
+
 /* Styles for new classification page */
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
