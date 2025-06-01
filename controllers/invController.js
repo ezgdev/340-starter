@@ -99,7 +99,7 @@ invCont.addClassification = async function (req, res, next) {
         )
         if (exists) {
             let nav = await utilities.getNav()
-            const message = "Classification name already exists."
+            const message = "Classification name already exists, please enter a new one."
             res.render("inventory/add-classification", {
                 title: "Add New Classification",
                 nav,
@@ -112,7 +112,7 @@ invCont.addClassification = async function (req, res, next) {
         try {
             const result = await invModel.addClassification(classification_name)
             if (result) {
-                req.flash("message", `Classification "${classification_name}" added successfully.`)
+                req.flash("message", `✅ Classification "${classification_name}" added successfully.`)
                 res.redirect("/inv/management")
             } else {
                 let nav = await utilities.getNav()
@@ -173,12 +173,12 @@ invCont.addNewVehicle = async function (req, res, next) {
         )
 
         if (result) {
-            req.flash("message", `Vehicle "${inv_make} ${inv_model}" added successfully.`)
+            req.flash("message", `✅ Vehicle "${inv_make} ${inv_model}" added successfully.`)
             res.redirect("/inv/management")
         } else {
             let nav = await utilities.getNav()
             const classificationList = await utilities.buildClassificationList(classification_id)
-            const message = "Failed to add vehicle."
+            const message = "Failed to add vehicle, try again."
             res.render("inventory/add-inventory", {
                 title: "Add New Vehicle",
                 nav,

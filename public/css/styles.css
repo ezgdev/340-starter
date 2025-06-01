@@ -572,10 +572,13 @@ input:valid {
     text-decoration: underline;
   } 
 
-  .flash-message {
+  .flash-message,
+  .noticeMsg {
     padding-left: 10px;
+    padding-bottom: 30px;
+    font-family: var(--text-font);
   }
-
+  
   /* Styles for login and register page */
   #login-form,
   #register-form,
