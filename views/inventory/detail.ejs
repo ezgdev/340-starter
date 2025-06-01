@@ -1,28 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <%- include('../partials/head') %>
-    <title><%= title %></title>
-</head>
-<body>
-    <main>
-        <h1><%= item.inv_make %> <%= item.inv_model %></h1>
-        <div class="inventory-detail">
-            <div class="inventory-image">
-                <% if (item.inv_image) { %>
-                    <img src="<%= item.inv_image %>" alt="<%= item.inv_make %> <%= item.inv_model %>">
-                <% } else { %>
-                    <img src="/images/vehicles/no-image.png" alt="No image available">
+<h1>
+    <%= item.inv_make %>
+        <%= item.inv_model %>
+</h1>
+<div class="inventory-detail">
+    <div class="inventory-image">
+        <% if (item.inv_image) { %>
+            <img src="<%= item.inv_image %>" alt="<%= item.inv_make %> <%= item.inv_model %>">
+            <% } else { %>
+                <img src="/images/vehicles/no-image.png" alt="No image available">
                 <% } %>
-            </div>
-            <div class="inventory-info">
-                <p><strong>Year:</strong> <%= item.inv_year %></p>
-                <p class="inv-price"><strong>Price:</strong> $<%= !isNaN(item.inv_price) ? new Intl.NumberFormat('en-US').format(item.inv_price) : 'N/A' %></p>
-                <p><strong>Miles:</strong> <%= !isNaN(item.inv_miles) ? new Intl.NumberFormat('en-US').format(item.inv_miles) : 'N/A' %></p>
-                <p><strong>Description:</strong> <%= item.inv_description %></p>
-                <p><strong>Color:</strong> <%= item.inv_color %></p>
-            </div>
-        </div>
-    </main>
-</body>
-</html>
+    </div>
+    <div class="inventory-info">
+        <p><strong>Year:</strong>
+            <%= item.inv_year %>
+        </p>
+        <p class="inv-price"><strong>Price:</strong> $<%= !isNaN(item.inv_price) ? new
+                Intl.NumberFormat('en-US').format(item.inv_price) : 'N/A' %>
+        </p>
+        <p><strong>Miles:</strong>
+            <%= !isNaN(item.inv_miles) ? new Intl.NumberFormat('en-US').format(item.inv_miles) : 'N/A' %>
+        </p>
+        <p><strong>Description:</strong>
+            <%= item.inv_description %>
+        </p>
+        <p><strong>Color:</strong>
+            <%= item.inv_color %>
+        </p>
+    </div>
+</div>

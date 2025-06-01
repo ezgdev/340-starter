@@ -61,7 +61,7 @@ validate.inventoryRules = () => {
             .notEmpty()
             .withMessage("Year is required.")
             .isInt({ min: 1886, max: new Date().getFullYear() + 1 })
-            .withMessage("Enter a valid year."),
+            .withMessage("Enter a valid 4 digits year."),
 
         body("inv_description")
             .trim()

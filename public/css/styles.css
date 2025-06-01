@@ -254,14 +254,16 @@ footer {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: var(--tertiary-color);
-  color: var(--secondary-color);
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
   margin: 20px;
   padding: 20px;
+  border-radius: 10px;
 }
 
 .error-message h1 {
   font-family: var(--heading-font);
+  color: var(--primary-color);
   font-size: 1.5rem;
 }
 
@@ -285,18 +287,21 @@ footer {
   font-weight: 600;
   text-transform: uppercase;
   margin-top: 10px;
+  color: var(--primary-color);
 }
 
-/* Styles for login and register page */
+/* Styles for Forms in every page */
 #login-form,
-#register-form {
+#register-form,
+#add-classification,
+#add-inventory {
   display: grid;
   margin: 0 auto;
   width: 80%;
   background-color: var(--tertiary-color);
   padding: 20px;
   gap: 10px;
-  font-family: var(--text-font);
+  font-family: var(--paragraph-font);
   border-radius: 10px;
   border: solid 1px var(--secondary-color);
 }
@@ -312,8 +317,10 @@ footer {
 }
 
 #login-form input,
-#register-form input {
-  font-family: var(--paragraph-font);
+#register-form input,
+#add-classification input,
+#add-inventory input {
+  font-family: var(--text-font);
   padding-left: 5px;
   border-radius: 10px;
   height: 30px;
@@ -331,7 +338,9 @@ input:valid {
 }
 
 #login-form button,
-#register-form button {
+#register-form button,
+#add-classification button,
+#add-inventory button {
   background-color: var(--secondary-color);
   color: white;
   opacity: 0.8;
@@ -342,6 +351,19 @@ input:valid {
   border: none;
   margin: 0 auto;
   cursor: pointer;
+}
+
+#add-inventory textarea,
+#classificationList {
+  font-family: var(--text-font);
+  padding-left: 5px;
+  border-radius: 10px;
+  height: 80px;
+  width: 100%;
+}
+
+#classificationList {
+  height: 30px;
 }
 
 .sign-up {
@@ -385,6 +407,8 @@ input:valid {
   color: var(--secondary-color);
   cursor: pointer;
 }
+
+/* Styles for new classification page */
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
 
@@ -431,7 +455,7 @@ input:valid {
     margin-top: 20px;
     margin-bottom: 20px;
     border: 5px solid var(--accent-color);
-    /* background-image: url('/images/site/checkerboard.jpg'); */
+    border-radius: 10px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -539,19 +563,29 @@ input:valid {
     text-decoration: underline;
   }
 
+  .management li a:hover {
+    text-decoration: underline;
+  } 
+
   /* Styles for login and register page */
   #login-form,
-  #register-form {
+  #register-form,
+  #add-classification,
+  #add-inventory {
     width: 50%;
   }
 
   #login-form button,
-  #register-form button {
+  #register-form button,
+  #add-classification button,
+  #add-inventory button {
     font-size: 15px;
   }
 
   #login-form button:hover,
-  #register-form button:hover {
+  #register-form button:hover,
+  #add-classification button:hover,
+  #add-inventory button:hover {
     background-color: var(--accent-color);
     color: var(--secondary-color);
   }

@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <title><%= title %></title>
-</head>
-<body>
+
     <h1><%= title %></h1>
 
     <% if (message) { %>
@@ -21,12 +15,10 @@
     
     <form action="/inv/add-classification" method="post" id="add-classification">
 
-        <label>Classification Name</label>
-        <div>Name must be alphabetic characters only</div>
-        <input type="text" id="nameCar" name="classification_name" placeholder="Type here" pattern="^[A-Za-z]+$" title="Only letters, no spaces or special characters." required>
+        <label for="classification_name">Classification Name</label>
+        <input type="text" id="classification_name" name="classification_name" placeholder="Alphabetic characters only" pattern="^[A-Za-z]+$" title="Only letters, no spaces or special characters." required>
 
         <button type="submit">Add Classification</button>
 
     </form>
-</body>
-</html>
+
