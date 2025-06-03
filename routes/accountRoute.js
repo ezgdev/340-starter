@@ -10,6 +10,9 @@ router.get("/login", utilities.handleErrors(accountController.buildLogin))
 // route for the path that will be sent when the "Register" link is clicked
 router.get("/register", utilities.handleErrors(accountController.buildRegister))
 
+// route for the path to logged
+router.get("/management", utilities.handleErrors(accountController.buildLogged))
+
 // Process the registration data 
 router.post(
     '/register',
@@ -22,7 +25,7 @@ router.post(
     "/login",
     regValidate.loginRules(),
     regValidate.checkLoginData,
-    utilities.handleErrors(accountController.loginAccount)
+    utilities.handleErrors(accountController.accountLogin)
 )
 
 module.exports = router;
