@@ -13,13 +13,6 @@ router.get("/register", utilities.handleErrors(accountController.buildRegister))
 // route for the path to logged
 router.get("/management", utilities.handleErrors(accountController.buildLogged))
 
-// Process the registration data 
-router.post(
-    '/register',
-    regValidate.registationRules(),
-    regValidate.checkRegData,
-    utilities.handleErrors(accountController.registerAccount)) //
-
 // Process the login attempt
 router.post(
     "/login",
@@ -27,5 +20,13 @@ router.post(
     regValidate.checkLoginData,
     utilities.handleErrors(accountController.accountLogin)
 )
+
+// Process the registration data 
+router.post(
+    '/register',
+    regValidate.registationRules(),
+    regValidate.checkRegData,
+    utilities.handleErrors(accountController.registerAccount))
+
 
 module.exports = router;
