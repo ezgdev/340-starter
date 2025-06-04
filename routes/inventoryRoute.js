@@ -38,4 +38,8 @@ router.post(
     utilities.handleErrors(invController.addNewVehicle)                                     
 )
 
+// Route to update inventory view
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+
+
 module.exports = router;
