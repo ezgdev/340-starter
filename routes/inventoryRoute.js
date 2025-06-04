@@ -38,8 +38,20 @@ router.post(
     utilities.handleErrors(invController.addNewVehicle)                                     
 )
 
-// Route to update inventory view
+// 
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+
+
+// Route to build edit inventory view
+router.get("/edit-inventory/:inventory_id", utilities.handleErrors(invController.editInventoryView))
+
+// POST route to update inventory with validation
+router.post(
+    "/update-inventory/:inventory_id",
+    validate.inventoryRules(),
+    validate.checkInventoryData,
+    utilities.handleErrors(invController.updateInventoryView)
+)
 
 
 module.exports = router;
