@@ -47,10 +47,10 @@ router.get("/edit-inventory/:inventory_id", utilities.handleErrors(invController
 
 // POST route to update inventory with validation
 router.post(
-    "/update-inventory/:inventory_id",
+    "/update/",
     validate.inventoryRules(),
-    validate.checkInventoryData,
-    utilities.handleErrors(invController.updateInventoryView)
+    validate.checkUpdateData,
+    utilities.handleErrors(invController.updateInventory)
 )
 
 

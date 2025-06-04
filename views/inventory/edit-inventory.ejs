@@ -9,15 +9,15 @@
         </ul>
     <% } %>
 
-    <form action="/inv/update" method="post" id="edit-inventory">
+    <form action="/inv/update" method="post" class="edit-inventory" id="updateForm">
         <label for="classificationList">Classification</label>
         <%- classificationList %>
         
         <label for="inv_make">Make</label>
-        <input type="text" id="inv_make" name="inv_make" placeholder="Min of 3 characters" title="Min of 3 letters." pattern="[A-Za-z]{3,}" value="<%= locals.inv_make %>" required>
+        <input type="text" id="inv_make" name="inv_make" placeholder="Min of 3 characters" title="Min of 3 letters." value="<%= locals.inv_make %>" required>
 
         <label for="inv_model">Model</label>
-        <input type="text" id="inv_model" name="inv_model" placeholder="Min of 3 characters" title="Min of 3 characters." pattern="[A-Za-z]{3,}" value="<%= locals.inv_model %>" required>
+        <input type="text" id="inv_model" name="inv_model" placeholder="Min of 3 characters" title="Min of 3 characters."  value="<%= locals.inv_model %>" required>
 
         <label for="inv_description">Description</label>
         <textarea name="inv_description" id="inv_description" placeholder="Type here" required><%= locals.inv_description || '' %></textarea>
@@ -40,7 +40,13 @@
         <label for="inv_color">Color</label>
         <input type="text" id="inv_color" name="inv_color" placeholder="Type here" value="<%= locals.inv_color %>" required>
 
-        <button type="submit">Update Vechicle</button>
+        <button type="submit" disabled>Update Vechicle</button>      
+        
+        <input type="hidden" name="inv_id"
+        <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+        <% } %>>
 
     </form>
+
+    <script src="/js/inv-update.js"></script>
 
