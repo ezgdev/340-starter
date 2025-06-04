@@ -11,7 +11,7 @@ router.get("/login", utilities.handleErrors(accountController.buildLogin))
 router.get("/register", utilities.handleErrors(accountController.buildRegister))
 
 // route for the path to logged
-router.get("/management", utilities.handleErrors(accountController.buildLogged))
+router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildLogged))
 
 // Process the login attempt
 router.post(

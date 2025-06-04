@@ -25,7 +25,7 @@ accountController.buildLogin = async function (req, res, next) {
 * *************************************** */
 accountController.buildLogged = async function (req, res, next) {
     let nav = await utilities.getNav()
-    res.render("account/management", {
+    res.render("account/", {
         title: "Account Management",
         nav,
         erros: null,
@@ -121,7 +121,7 @@ accountController.accountLogin = async function(req, res) {
             } else {
                 res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
             }
-            return res.redirect("/account/management")
+            return res.redirect("/account/")
         }
         else {
             req.flash("message notice", "Please check your credentials and try again.")
