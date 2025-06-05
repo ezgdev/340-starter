@@ -38,9 +38,7 @@ router.post(
     utilities.handleErrors(invController.addNewVehicle)                                     
 )
 
-// 
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
-
 
 // Route to build edit inventory view
 router.get("/edit-inventory/:inventory_id", utilities.handleErrors(invController.editInventoryView))
@@ -53,5 +51,10 @@ router.post(
     utilities.handleErrors(invController.updateInventory)
 )
 
+// Route to delete inventory item
+router.get("/delete/:inventory_id", utilities.handleErrors(invController.deleteInventoryView))
+
+// Post route to delete inventory item
+router.post("/delete/",utilities.handleErrors(invController.deleteInventoryItem))
 
 module.exports = router;

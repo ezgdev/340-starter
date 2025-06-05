@@ -327,5 +327,80 @@ invCont.updateInventory = async function (req, res, next) {
     }
 }
 
+/* ***************************
+ *  Build delete inventory view
+ * ************************** */
+invCont.deleteInventoryView = async function (req, res, next) {
+    try {
+        const inv_id = parseInt(req.params.inventory_id)
+        const itemData = await invModel.getInventoryById(inv_id)
+
+        if (!itemData) {
+            return res.status(404).render("errors/error", {
+                title: "Item Not Found",
+                message: "The requested inventory item was not found.",
+            })
+        }
+
+        let nav = await utilities.getNav()
+        const classificationList = await utilities.buildClassificationList(itemData.classification_id)
+        const itemName = `${itemData.inv_make} ${itemData.inv_model}`
+
+        res.render("./inventory/delete-confirm", {
+            title: "Delete " + itemName,
+            nav,
+            classificationList,
+            errors: null,
+            inv_id: itemData.inv_id,
+            inv_make: itemData.inv_make,
+            inv_model: itemData.inv_model,
+            inv_year: itemData.inv_year,
+            inv_price: itemData.inv_price,
+            classification_id: itemData.classification_id,
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+/* ***************************
+ *  Delete inventory item
+ * ************************** */
+invCont.deleteInventoryItem = async function (req, res, next) {
+    let nav = await utilities.getNav()
+    const {
+        inv_id, 
+        inv_make,
+        inv_model,
+        classification_id,
+    } = req.body
+
+    const parsed_inv_id = parseInt(inv_id)
+    const deleteResult = await invModel.deleteInventoryItem(
+        parsed_inv_id,
+        inv_make,
+        inv_model,
+        classification_id
+    )
+
+    if (deleteResult) {
+        const itemName = deleteResult.inv_make + " " + deleteResult.inv_model
+        req.flash("message", `The ${itemName} was successfully deleted.`)
+        res.redirect("/inv/management")
+    } else {
+        const classificationSelect = await utilities.buildClassificationList(classification_id)
+        const itemName = `${inv_make} ${inv_model}`
+        req.flash("notice", "Sorry, the delete failed.")
+        res.status(501).render("inventory/delete-confirm", {
+            title: "Delete " + itemName,
+            nav,
+            classificationSelect: classificationSelect,
+            errors: null,
+            inv_id,
+            classification_id
+        })
+    }
+}
+
 
 module.exports = invCont
