@@ -31,7 +31,7 @@ accountController.buildLogged = async function (req, res, next) {
         erros: null,
     })
 }
-    
+
 
 /* ****************************************
 *  Deliver registration view
@@ -98,7 +98,7 @@ accountController.registerAccount = async function (req, res, next) {
 /* ****************************************
  *  Process login request
  * ************************************ */
-accountController.accountLogin = async function(req, res) {
+accountController.accountLogin = async function (req, res) {
     let nav = await utilities.getNav()
     const { account_email, account_password } = req.body
     const accountData = await accountModel.getAccountByEmail(account_email)
@@ -117,9 +117,21 @@ accountController.accountLogin = async function(req, res) {
             delete accountData.account_password
             const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 })
             if (process.env.NODE_ENV === 'development') {
-                res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
+                res.cookie("jwt", accessToken, {
+                    httpOnly: true,
+                    secure: false,
+                    maxAge: 3600 * 1000,
+                    path: "/",
+                    sameSite: "strict"
+                })
             } else {
-                res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
+                res.cookie("jwt", accessToken, {
+                    httpOnly: true,
+                    secure: true,        
+                    maxAge: 3600 * 1000,
+                    path: "/",
+                    sameSite: "strict"
+                })
             }
             return res.redirect("/account/")
         }
@@ -136,5 +148,34 @@ accountController.accountLogin = async function(req, res) {
         throw new Error('Access Forbidden')
     }
 }
+
+/* ****************************************
+ *  Process logout request
+ * ************************************ */
+accountController.accountLogout = async function (req, res) {
+    let nav = await utilities.getNav()
+    if (process.env.NODE_ENV === 'development') {
+        res.clearCookie("jwt", {
+            httpOnly: true,
+            secure: false,
+            path: "/",
+            sameSite: "strict"
+        });
+    } else {
+        res.clearCookie("jwt", {
+            httpOnly: true,
+            secure: true,
+            path: "/",
+            sameSite: "strict"
+        });
+    }
+    req.flash("notice", "You have been logged out.")
+    res.status(200).render("account/login", {
+        title: "Login",
+        nav,
+        errors: null,
+    })
+}
+
 
 module.exports = accountController;
