@@ -161,6 +161,7 @@ accountController.accountLogout = async function (req, res) {
             path: "/",
             sameSite: "strict"
         });
+        res.redirect("/");
     } else {
         res.clearCookie("jwt", {
             httpOnly: true,
@@ -168,6 +169,7 @@ accountController.accountLogout = async function (req, res) {
             path: "/",
             sameSite: "strict"
         });
+        res.redirect("/");
     }
     req.flash("notice", "You have been logged out.")
     res.status(200).render("account/login", {
