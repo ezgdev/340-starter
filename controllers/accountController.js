@@ -115,7 +115,14 @@ accountController.accountLogin = async function (req, res) {
     try {
         if (await bcrypt.compare(account_password, accountData.account_password)) {
             delete accountData.account_password
-            const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 })
+            const accessToken = jwt.sign(
+                {   
+                    account_id: accountData.account_id,
+                    account_firstname: accountData.account_firstname,
+                    account_type: accountData.account_type,   
+                },
+                process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 })
+
             if (process.env.NODE_ENV === 'development') {
                 res.cookie("jwt", accessToken, {
                     httpOnly: true,
@@ -136,7 +143,7 @@ accountController.accountLogin = async function (req, res) {
             return res.redirect("/account/")
         }
         else {
-            req.flash("message notice", "Please check your credentials and try again.")
+            req.flash("notice", "Please check your credentials and try again.")
             res.status(400).render("account/login", {
                 title: "Login",
                 nav,
@@ -153,31 +160,20 @@ accountController.accountLogin = async function (req, res) {
  *  Process logout request
  * ************************************ */
 accountController.accountLogout = async function (req, res) {
-    let nav = await utilities.getNav()
-    if (process.env.NODE_ENV === 'development') {
-        res.clearCookie("jwt", {
-            httpOnly: true,
-            secure: false,
-            path: "/",
-            sameSite: "strict"
-        });
-        res.redirect("/");
-    } else {
-        res.clearCookie("jwt", {
-            httpOnly: true,
-            secure: true,
-            path: "/",
-            sameSite: "strict"
-        });
-        res.redirect("/");
-    }
-    req.flash("notice", "You have been logged out.")
-    res.status(200).render("account/login", {
-        title: "Login",
-        nav,
-        errors: null,
-    })
-}
+    // Delete the JWT cookie
+    res.clearCookie("jwt", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV !== 'development',
+        path: "/",
+        sameSite: "strict"
+    });
+
+    // Set a flash message to inform the user
+    req.flash("notice", "✅ You have been logged out.");
+
+    // Redirect to the login page
+    res.redirect("/account/login");
+};
 
 
 module.exports = accountController;

@@ -126,4 +126,53 @@ Util.checkLogin = (req, res, next) => {
     }
 }
 
-module.exports = Util 
+/* ****************************************
+*  Decode JWT Token
+* ************************************ */
+Util.decodeJWT = (req, res, next) => {
+    const token = req.cookies.jwt
+    if (token) {
+        try {
+            const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+            res.locals.loggedin = true
+            res.locals.firstname = decoded.account_firstname
+            res.locals.accountId = decoded.account_id
+            res.locals.accountType = decoded.account_type
+        } catch (err) {
+            res.locals.loggedin = false
+        }
+    } else {
+        res.locals.loggedin = false
+    }
+    next()
+}
+
+/* ****************************************
+ * Middleware to require a specific role
+* ************************************ */
+Util.requireRole = (...allowedRoles) => {
+    return (req, res, next) => {
+        const userIsLoggedIn = res.locals.loggedin
+        const userRole = res.locals.accountType?.toLowerCase()  
+        const allowed = allowedRoles.map(role => role.toLowerCase())
+
+        console.log("🔍 Role check:", { userRole, allowed })
+
+        if (userIsLoggedIn && allowed.includes(userRole)) {
+            return next()
+        }
+
+        if (userIsLoggedIn) {
+            req.flash("notice", "Access denied: insufficient permissions.")
+            // Redirect to account home or dashboard instead of login to avoid logging out user
+            return res.redirect("/account/")
+        }
+        
+        req.flash("notice", "Please log in.")
+        return res.redirect("/account/login")
+        
+    }
+    
+}
+
+module.exports = Util

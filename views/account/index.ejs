@@ -1,7 +1,9 @@
 
-<div>
     <h1><%= title %></h1>
+<div>
+    <%- messages() %>
+    <h2>Welcome <%= locals.firstname %>!</h2>
+    <p>You're logged in</p>
 
-
-    <h2>You're logged in</h2>
+    <a href="#" class="editInfo">Edit account information</a>
 </div>

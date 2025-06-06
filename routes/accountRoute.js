@@ -1,5 +1,5 @@
 const express = require("express")
-const router = new express.Router() 
+const router = new express.Router()
 const accountController = require("../controllers/accountController")
 const utilities = require("../utilities")
 const regValidate = require('../utilities/account-validation')
@@ -30,5 +30,6 @@ router.post(
 
 // Process the logout
 router.get("/logout", utilities.checkLogin, utilities.handleErrors(accountController.accountLogout))
+
 
 module.exports = router;
