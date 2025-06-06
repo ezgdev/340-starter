@@ -1,17 +1,32 @@
-const express = require("express")
-const router = new express.Router()
-const accountController = require("../controllers/accountController")
-const utilities = require("../utilities")
-const regValidate = require('../utilities/account-validation')
+const express = require("express");
+const router = new express.Router();
+const accountController = require("../controllers/accountController");
+const utilities = require("../utilities");
+const regValidate = require("../utilities/account-validation");
 
 // route for the path that will be sent when the "Login" link is clicked
-router.get("/login", utilities.handleErrors(accountController.buildLogin))
+router.get("/login", utilities.handleErrors(accountController.buildLogin));
 
 // route for the path that will be sent when the "Register" link is clicked
-router.get("/register", utilities.handleErrors(accountController.buildRegister))
+router.get(
+    "/register",
+    utilities.handleErrors(accountController.buildRegister)
+);
 
 // route for the path to logged
-router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildLogged))
+router.get(
+    "/",
+    utilities.checkLogin,
+    utilities.handleErrors(accountController.buildLogged)
+);
+
+// route for the path to update account
+router.get(
+    "/update/:id",
+    utilities.checkLogin,
+    regValidate.checkUpdateData,
+    utilities.handleErrors(accountController.buildUpdate)
+);
 
 // Process the login attempt
 router.post(
@@ -19,17 +34,28 @@ router.post(
     regValidate.loginRules(),
     regValidate.checkLoginData,
     utilities.handleErrors(accountController.accountLogin)
-)
-
-// Process the registration data 
+);
+// Process the registration data
 router.post(
-    '/register',
+    "/register",
     regValidate.registationRules(),
     regValidate.checkRegData,
-    utilities.handleErrors(accountController.registerAccount))
+    utilities.handleErrors(accountController.registerAccount)
+);
 
 // Process the logout
-router.get("/logout", utilities.checkLogin, utilities.handleErrors(accountController.accountLogout))
+router.get(
+    "/logout",
+    utilities.checkLogin,
+    utilities.handleErrors(accountController.accountLogout)
+);
 
+// Process to update account data
+router.post(
+    "/update/:id",
+    utilities.checkLogin,
+    regValidate.checkUpdateData,
+    utilities.handleErrors(accountController.updateAccount)
+);
 
 module.exports = router;

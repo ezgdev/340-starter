@@ -2,8 +2,15 @@
     <h1><%= title %></h1>
 <div>
     <%- messages() %>
-    <h2>Welcome <%= locals.firstname %>!</h2>
-    <p>You're logged in</p>
 
-    <a href="#" class="editInfo">Edit account information</a>
+    <h2>Welcome <%= locals.firstname %>!</h2>
+
+    <a href="/account/update/<%= locals.accountId %>" class="editInfo">Edit account information</a>
+
+    <% if (locals.accountType === 'Employee' || locals.accountType === 'Admin') { %>
+        <h3>Inventory Management.</h3>
+        <a href="/inv/management" class="manageInventory">Manage Inventory</a>
+    <% } %>
+
+    
 </div>

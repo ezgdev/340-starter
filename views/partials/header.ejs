@@ -2,24 +2,19 @@
     <span class="siteName">
         <a href="/" title="Return to home page">CSE Motors</a>
     </span>
+
     <div>
+        <% if (locals.loggedin) { %>
+        <div id="logout">
+            <a title="Welcome back,!" href="/account">Welcome, <%= locals.firstname %></a>
+            <span>||</span>
+            <a title="Click to log out" href="/account/logout">Logout</a>
+        </div>
+        <% } else { %>
         <div id="login">
             <a title="Click to log in" href="/account/login">My Account</a>
-            <% if (locals.loggedin) { %>
-                <script>
-                    document.addEventListener("DOMContentLoaded", function() {
-                        document.querySelector('#login').style.display = 'none';
-                        document.querySelector('#logout a[title="Click to log out"]').hidden = false;
-                        document.querySelector('#logout a[title^="Welcome back"]').hidden = false;
-                    });
-                </script>
-            <% } %>
         </div>
-
-        <div id="logout">
-            <a title="Welcome back,!" href="/account" hidden>Welcome, <%= locals.firstname %></a>
-            <a title="Click to log out" href="/account/logout" hidden>Logout</a>
-        </div>
+        <% } %>
     </div>
 
 </header>

@@ -36,9 +36,9 @@ validate.registationRules = () => {
             .normalizeEmail() // refer to validator.js docs
             .withMessage("A valid email is required.")
             .custom(async (account_email) => {
-            const emailExists = await accountModel.checkExistingEmail(account_email)
-            if (emailExists){
-            throw new Error("Email exists. Please log in or use different email")
+                const emailExists = await accountModel.checkExistingEmail(account_email)
+                if (emailExists) {
+                    throw new Error("Email exists. Please log in or use different email")
                 }
             }),
 
@@ -125,6 +125,17 @@ validate.checkLoginData = async (req, res, next) => {
         return
     }
     next()
+}
+
+validate.checkUpdateData = async (req, res, next) =>{
+    if (req.session && req.session.loggedin) {
+        // Si el usuario está logueado, se asigna su cuenta al request
+        req.account = req.session.account
+        return next()
+    }
+
+    req.flash("notice", "You must be logged in to update your account.")
+    return res.redirect("/account/login")
 }
 
 module.exports = validate
