@@ -186,10 +186,9 @@ h1 {
 
 /* Styles for Inventory Page */
 #inv-display {
-  display: grid;
-  width: 80%;
-  margin: 0 auto;
-  grid-template-columns: repeat(1, 0.5fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
   gap: 10px;
   padding: 0;
 }
@@ -456,8 +455,7 @@ input:valid {
   text-align: center;
 }
 
-.inventory-management h2,
-.account-update h2 {
+.inventory-management h2 {
   font-family: var(--text-font);
   color: var(--secondary-color);
   margin: 0;
@@ -530,6 +528,16 @@ tbody td a {
 }
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
+  #navBar ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0;
+  flex-wrap: wrap;
+  column-gap: 10px;
+  row-gap: 10px;  
+  }
 
   .deloreanImg {
     width: 500px;
@@ -538,10 +546,6 @@ tbody td a {
 
   .vehicle-info {
     width: 20%;
-  }
-
-  #inv-display {
-    grid-template-columns: repeat(2, 0.5fr);
   }
 
   #inv-display img {
@@ -641,12 +645,6 @@ tbody td a {
     padding-left: 10px;
   }
 
-  #inv-display {
-    grid-template-columns: repeat(3, 0.5fr);
-    column-gap: 10px;
-    row-gap: 10px;
-    padding: 10px;
-  }
 
   #inv-display img {
     width: 280px;
@@ -683,6 +681,11 @@ tbody td a {
     text-decoration: underline;
   }
 
+  .management,
+  .inventory-management {
+    width: 50%;
+  }
+
   .management li a:hover {
     text-decoration: underline;
   } 
@@ -699,25 +702,43 @@ tbody td a {
   #register-form,
   #add-classification,
   #add-inventory,
-  .edit-inventory {
+  .edit-inventory,
+  .delete-confirm,
+  #update-info,
+  #update-password {
     width: 50%;
   }
 
   #login-form button,
   #register-form button,
   #add-classification button,
-  #add-inventory button
-  .edit-inventory button {
+  #add-inventory button,
+  .edit-inventory button,
+  .delete-confirm button,
+  #update-info button,
+  #update-password button {
     font-size: 15px;
   }
 
   #login-form button:hover,
   #register-form button:hover,
   #add-classification button:hover,
-  #add-inventory button:hover
-  .edit-inventory button:hover {
-    background-color: var(--accent-color);
-    color: var(--secondary-color);
+  #add-inventory button:hover,
+  .edit-inventory button:hover,
+  .delete-confirm button:hover,
+  #update-info button:hover,
+  #update-password button:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+  }
+
+  .user-menu {
+    width: 50%;
+    margin: 30px auto;
+  }
+  
+  .account-update p {
+    padding-left: 10px;
   }
 
   footer {
