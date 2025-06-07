@@ -54,35 +54,54 @@ async function getAccountById(account_id) {
 }
 
 /* *****************************
-* Update account data
+* Update account info (no password)
 * ***************************** */
-async function updateAccount(account_id, account_firstname, account_lastname, account_email, account_password) {
+    async function updateAccountInfo(account_id, account_firstname, account_lastname, account_email) {
+        try {
+            const sql = `UPDATE public.account 
+                        SET account_firstname = $1, 
+                        account_lastname = $2, 
+                        account_email = $3 
+                        WHERE account_id = $4 
+                        RETURNING *`
+
+            const data = await pool.query(sql, [
+                account_firstname,
+                account_lastname,
+                account_email,
+                account_id
+            ]);
+
+            return data.rows[0] || {}
+
+        } catch (error) {
+            console.error("Error updating account info:", error.message);
+            return null; 
+        }
+    }
+
+/* *****************************
+* Update account password only
+* ***************************** */
+async function updateAccountPassword(account_id, account_password) {
     try {
         const sql = `UPDATE public.account 
-                    SET account_firstname = $1, 
-                    account_lastname = $2, 
-                    account_email = $3, 
-                    account_password = $4 
-                    WHERE account_id = $5 
+                    SET account_password = $1 
+                    WHERE account_id = $2 
                     RETURNING *`;
 
         const data = await pool.query(sql, [
-            account_firstname,
-            account_lastname,
-            account_email,
             account_password,
             account_id
         ]);
 
-        if (data.rowCount === 0) {
-            return null; 
-        }
+        return data.rows[0] || {}
 
-        return data.rows[0]; 
     } catch (error) {
-        console.error("Error:", error.message);
+        console.error("Error updating password:", error.message);
         return null; 
     }
 }
 
-module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountById, updateAccount }
+
+module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountById, updateAccountInfo, updateAccountPassword }

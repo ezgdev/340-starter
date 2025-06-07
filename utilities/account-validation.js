@@ -9,7 +9,7 @@ const validate = {}
 /*  **********************************
 *  Registration Data Validation Rules
 * ********************************* */
-validate.registationRules = () => {
+validate.registrationRules = () => {
     return [
         // firstname is required and must be string
         body("account_firstname")
@@ -127,6 +127,9 @@ validate.checkLoginData = async (req, res, next) => {
     next()
 }
 
+/*  *********************************
+    Check if user is logged in and has an account
+    ******************************** */
 validate.checkUpdateData = async (req, res, next) =>{
     if (req.session && req.session.loggedin) {
         // Si el usuario está logueado, se asigna su cuenta al request
@@ -137,5 +140,105 @@ validate.checkUpdateData = async (req, res, next) =>{
     req.flash("notice", "You must be logged in to update your account.")
     return res.redirect("/account/login")
 }
+
+/*  **********************************
+*  Update Data Validation Rules
+* ********************************* */
+validate.updateDataRules = () => {
+    return [
+    // firstname is required and must be string
+    body("account_firstname")
+            .trim()
+            .escape()
+            .notEmpty()
+            .isLength({ min: 1 })
+            .withMessage("Please provide a first name."), // on error this message is sent.
+
+    // lastname is required and must be string
+    body("account_lastname")
+            .trim()
+            .escape()
+            .notEmpty()
+            .isLength({ min: 2 })
+            .withMessage("Please provide a last name."), // on error this message is sent.
+
+    // valid email is required and cannot already exist in the DB
+    body("account_email")
+            .trim()
+            .escape()
+            .notEmpty()
+            .isEmail()
+            .normalizeEmail()
+            .withMessage("A valid email is required.")
+            .custom(async (account_email, { req }) => {
+                const currentId = req.params.id
+                const account = await accountModel.getAccountByEmail(account_email)
+                // Si existe el email pero pertenece a otro usuario, tirar error
+                if (account && account.account_id != currentId) {
+                        throw new Error("Email already in use.")
+                    }
+            })
+    ]
+}
+
+/* ******************************
+ * Check data and return errors or continue
+ * ***************************** */
+validate.checkUpdateDataRules = async (req, res, next) => {
+    const { account_firstname, account_lastname, account_email, account_id } = req.body
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        let nav = await utilities.getNav()
+        return res.status(400).render("account/update", {
+            title: "Update Account",
+            nav,
+            errors,
+            account_firstname,
+            account_lastname,
+            account_email,
+            account_id
+        })
+    }
+    next()
+}
+
+/*  **********************************
+*  Update Password Validation Rules
+* ********************************* */
+validate.updatePasswordRules = () => {
+    return [
+        body("account_password")
+            .trim()
+            .notEmpty()
+            .isStrongPassword({
+                minLength: 12,
+                minLowercase: 1,
+                minUppercase: 1,
+                minNumbers: 1,
+                minSymbols: 1,
+            })
+            .withMessage("Password does not meet requirements."),
+    ]
+}
+
+/* ******************************
+ * Check data and return errors or continue
+ * ***************************** */
+validate.checkUpdatePasswordRules = async (req, res, next) => {
+    const { account_password, account_id } = req.body
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        let nav = await utilities.getNav()
+        return res.status(400).render("account/update", {
+            title: "Update Account",
+            nav,
+            errors,
+            account_password: "",
+            account_id,
+        })
+    }
+    next()
+}
+
 
 module.exports = validate
