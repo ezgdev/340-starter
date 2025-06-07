@@ -1,18 +1,19 @@
 <h1><%= title %></h1>
-<div>
-    <%- messages() %>
 
-    <% if (errors) { %>
-        <ul class="notice">
-        <% errors.array().forEach(error => { %>
-        <li>❌ <%= error.msg %></li>
-        <%  }) %>
-        </ul>
-    <% } %>
+<%- messages() %>
 
-    <h2>Update Account Information</h2>   
+<% if (errors) { %>
+    <ul class="notice">
+    <% errors.array().forEach(error => { %>
+    <li>❌ <%= error.msg %></li>
+    <%  }) %>
+    </ul>
+<% } %>
+
+<div class="account-update">   
+    <p>Update your account information below. You can change your name, email, and password.</p>
     
-    <form action="/account/update-info/<%= locals.account_id %>" method="POST" id="update-form">
+    <form action="/account/update-info/<%= locals.account_id %>" method="POST" id="update-info">
         <label for="firstName">First name</label>
         <input type="text" id="firstName" name="account_firstname" placeholder="Type here" value="<%= locals.account_firstname %>" required/>
 
@@ -29,7 +30,7 @@
         <% } %>>
     </form>
 
-    <form action="/account/update-password/<%= locals.account_id %>" method="POST" id="update-form">
+    <form action="/account/update-password/<%= locals.account_id %>" method="POST" id="update-password">
         <label for="password">New Password (leave blank to keep current)</label>
         <div>The password must be: 
             <ul>
