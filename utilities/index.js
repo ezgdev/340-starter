@@ -50,8 +50,12 @@ Util.buildClassificationGrid = async function (data) {
             grid += '</h2>'
             grid += '<span>$'
                 + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>'
+            grid += `<form action="/favorites/add/${vehicle.inv_id}" method="POST">
+                        <button>❤️ Add to favorite</button>
+                    </form>`;
             grid += '</div>'
             grid += '</li>'
+            
         })
         grid += '</ul>'
     } else {

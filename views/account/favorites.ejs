@@ -1,0 +1,20 @@
+
+    <h1><%= title %></h1>
+
+    <%- messages() %>
+
+    <% if (favorites && favorites.length > 0) { %>
+    <ul class="list-group">
+        <% favorites.forEach(function(favorite) { %>
+            <li class="list-group-item">
+                <strong><%= favorite.inv_make + " " + favorite.inv_model %></strong> - $<%= favorite.inv_price %>
+                <form action="/favorites/remove/<%= favorite.inv_id %>" method="POST" class="float-end" style="display:inline;">
+                    <button type="submit">Remove</button>
+                </form>
+            </li>
+        <% }); %>
+    </ul>
+<% } else { %>
+    <p>You have no favorites yet.</p>
+<% } %>
+

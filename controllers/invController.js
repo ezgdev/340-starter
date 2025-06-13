@@ -35,6 +35,7 @@ invCont.buildByInventoryId = async function (req, res, next) {
     res.render("./inventory/detail", {
         title: item.inv_make + " " + item.inv_model,
         nav,
+        inv_id,
         item,
     })
 }
