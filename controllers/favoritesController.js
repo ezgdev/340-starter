@@ -1,5 +1,6 @@
 const utilities = require("../utilities")
 const favoritesModel = require("../models/favorites-model")
+const inventoryModel = require("../models/inventory-model")
 
 const favoritesController = {}
 
@@ -40,19 +41,33 @@ favoritesController.buildFavorites = async (req, res) => {
 favoritesController.addToFavorites = async (req, res) => {
     try {
         const account_id = req.session.account.account_id
-        const inv_id = req.params.inv_id
 
-        if (!inv_id) {
-            return res.status(400).send("Invalid inventory ID")
+        const inv_id = parseInt(req.params.inv_id)
+        if (isNaN(inv_id)) {
+            return res.status(400).send("❌ Invalid inventory ID")
+        }
+
+        const vehicle = await inventoryModel.getInventoryById(inv_id)
+        if (!vehicle) {
+            req.flash("notice", "❌ Vehicle not found.")
+            return res.redirect("/inventory")
         }
 
         const favorite = await favoritesModel.addFavorite(account_id, inv_id)
 
         if (!favorite) {
-            return res.status(500).send("Failed to add to favorites")
+            req.flash("notice", "❌ Failed to add to favorites.")
+            return res.redirect("/favorites")
         }
 
+        if (favorite.alreadyExists) {
+            req.flash("notice", "⚠️ This vehicle is already in your favorites.")
+            return res.redirect(req.get("referer"))
+        }
+
+        req.flash("notice", "✅ Item added to favorites successfully")
         res.redirect("/favorites")
+
     } catch (error) {
         console.error("Error adding to favorites:", error)
         res.status(500).send("Internal Server Error")
@@ -84,9 +99,9 @@ favoritesController.getMyFavorites = async (req, res) => {
 favoritesController.removeFromFavorites = async (req, res) => {
     try {
         const account_id = req.session.account.account_id
-        const inv_id = req.params.inv_id
-
-        if (!inv_id) {
+        
+        const inv_id = parseInt(req.params.inv_id)
+        if (isNaN(inv_id)) {
             return res.status(400).send("Invalid inventory ID")
         }
 
@@ -96,6 +111,7 @@ favoritesController.removeFromFavorites = async (req, res) => {
             return res.status(404).send("Favorite not found")
         }
 
+        req.flash("notice", "✅ Item removed from favorites successfully")
         res.redirect("/favorites")
     } catch (error) {
         console.error("Error removing from favorites:", error)
