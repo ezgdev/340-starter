@@ -193,8 +193,8 @@ h1 {
   padding: 0;
 }
 
-#inv-display img {
-  width: 180px;
+.invDisplayImg {
+  width: 280px;
   height: auto;
   border-radius: 10px;
 }
@@ -226,6 +226,30 @@ h1 {
   font-weight: 600;
 }
 
+.namePrice {
+  display: grid;
+  width: 100%; 
+  grid-template-columns: 1fr 0.5fr;
+  
+}
+
+.namePrice h2 {
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+
+.namePrice span {
+  grid-column: 1/2;
+  grid-row: 2/3;
+}
+
+.namePrice form {
+  grid-row: 2/3;
+  display: flex;
+  justify-content: end;
+  align-items: start;
+}
+
 /* Styles for details page */
 .inventory-detail {
   display: grid;
@@ -252,6 +276,17 @@ h1 {
   background-color: var(--tertiary-color);
   padding: 10px 3px;
   border-radius: 10px;
+}
+
+.favButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.favImg {
+  width: 30px;
+  height: 30px;
 }
 
 footer {
@@ -527,6 +562,42 @@ tbody td a {
   cursor: pointer;
 }
 
+/* Styles for favorites page */
+.list-group {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+}
+
+.list-group li {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr 0.5fr;
+  row-gap: 10px;
+  padding: 10px;
+  background-color: var(--tertiary-color);
+  border-radius: 10px;
+  align-items: center;
+  font-family: var(--text-font); ;
+}
+
+.img-thumbnail {
+  width: 100px;
+  height: auto;
+  border-radius: 10px;
+}
+
+.list-group button {
+  background: none;
+  border: none;
+  margin: 0 auto;
+  cursor: pointer;
+  padding-left: 40px;
+}
+
+
 @media screen and (min-width: 768px) and (max-width: 1023px) {
   #navBar ul {
   display: flex;
@@ -548,8 +619,13 @@ tbody td a {
     width: 20%;
   }
 
-  #inv-display img {
+  .invDisplayImg {
     width: 280px;
+  }
+
+  #inv-display li {
+    width: 300px;
+    height: auto;
   }
 
   #inv-display li a {
@@ -568,6 +644,12 @@ tbody td a {
   #login-form,
   #register-form {
     width: 60%;
+  }
+
+  .list-group li {
+    width: 80%;
+    margin: 0 auto;
+    padding: 15px 50px;
   }
 }
 
@@ -639,15 +721,24 @@ tbody td a {
     grid-row: 1/2;
   }
 
+  #logout a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
   /* Styles for Inventory Page */
 
   h1 {
     padding-left: 10px;
   }
 
-
-  #inv-display img {
+  .invDisplayImg {
     width: 280px;
+  }
+
+  #inv-display li {
+    width: 300px;
+    height: auto;
   }
 
   #inv-display li a {
@@ -739,6 +830,12 @@ tbody td a {
   
   .account-update p {
     padding-left: 10px;
+  }
+
+  .list-group li {
+    width: 60%;
+    margin: 0 auto;
+    padding: 15px 50px;
   }
 
   footer {

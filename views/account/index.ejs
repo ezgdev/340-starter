@@ -7,10 +7,6 @@
 
     <a href="/account/update/<%= locals.accountId %>" class="editInfo">Edit account information</a>
 
-
-    <h3>View your favorites</h3>
-    <a href="/favorites" class="editInfo">My Favorites</a>
-
     <% if (locals.accountType === 'Employee' || locals.accountType === 'Admin') { %>
         <h3>Inventory Management</h3>
         <a href="/inv/management">Manage Inventory</a>

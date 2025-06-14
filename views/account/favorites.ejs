@@ -7,14 +7,19 @@
     <ul class="list-group">
         <% favorites.forEach(function(favorite) { %>
             <li class="list-group-item">
-                <strong><%= favorite.inv_make + " " + favorite.inv_model %></strong> - $<%= favorite.inv_price %>
+                <img src="<%= favorite.inv_image %>" alt="<%= favorite.inv_make + ' ' + favorite.inv_model %>" class="img-thumbnail">
+                <div>
+                    <strong><%= favorite.inv_make + " " + favorite.inv_model %></strong> <br>
+                    $<%= !isNaN(favorite.inv_price) ? new
+                Intl.NumberFormat('en-US').format(favorite.inv_price) : 'N/A' %>
+                </div>
                 <form action="/favorites/remove/<%= favorite.inv_id %>" method="POST" class="float-end" style="display:inline;">
-                    <button type="submit">Remove</button>
+                    <button type="submit" title="remove from favorites">❌</button>
                 </form>
             </li>
         <% }); %>
     </ul>
 <% } else { %>
-    <p>You have no favorites yet.</p>
+    <p>❌ You have no favorites yet.</p>
 <% } %>
 

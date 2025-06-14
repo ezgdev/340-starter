@@ -24,7 +24,7 @@ async function addFavorite(account_id, inv_id) {
 * ********************* */
 async function getFavorites(account_id) {
     try {
-        const sql = "SELECT f.inv_id, i.inv_make, i.inv_model, i.inv_price FROM favorites f JOIN inventory i ON f.inv_id = i.inv_id WHERE f.account_id = $1"
+        const sql = "SELECT f.inv_id, i.inv_make, i.inv_model, i.inv_price, i.inv_image FROM favorites f JOIN inventory i ON f.inv_id = i.inv_id WHERE f.account_id = $1"
         const result = await pool.query(sql, [account_id])
         return result.rows
     } catch (error) {

@@ -43,9 +43,9 @@ Util.buildClassificationGrid = async function (data, userFavorites = []) {
                 + '" title="View ' + vehicle.inv_make + ' ' + vehicle.inv_model
                 + 'details"><img src="' + vehicle.inv_thumbnail
                 + '" alt="Image of ' + vehicle.inv_make + ' ' + vehicle.inv_model
-                + ' on CSE Motors" /></a>'
+                + ' on CSE Motors" class="invDisplayImg" /></a>'
             grid += '<div class="namePrice">'
-            grid += '<hr />'
+            
             grid += '<h2>'
             grid += '<a href="/inv/item/' + vehicle.inv_id + '" title="View '
                 + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">'
@@ -56,11 +56,11 @@ Util.buildClassificationGrid = async function (data, userFavorites = []) {
 
             if (isFavorite) {
                 grid += `<form action="/favorites/remove/${vehicle.inv_id}" method="POST">
-                            <button type="submit">❤️</button>
+                            <button type="submit" class="favButton"><img src="/images/site/red-heart.png" alt="Remove from favorites" title="Remove from favorites" class="favImg"></button>
                         </form>`
             } else {
                 grid += `<form action="/favorites/add/${vehicle.inv_id}" method="POST">
-                            <button>🤍</button>
+                            <button type="submit" class="favButton"><img src="/images/site/black-heart.png" alt="Add to favorites" title="Add to favorites" class="favImg"></button>
                         </form>`
             }
             
