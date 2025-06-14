@@ -30,11 +30,14 @@ Util.getNav = async function () {
 /* **************************************
 * Build the classification view HTML
 * ************************************ */
-Util.buildClassificationGrid = async function (data) {
-    let grid
+Util.buildClassificationGrid = async function (data, userFavorites = []) {
+    let grid = ""
+
     if (data.length > 0) {
         grid = '<ul id="inv-display">'
         data.forEach(vehicle => {
+            const isFavorite = userFavorites.includes(vehicle.inv_id)
+
             grid += '<li>'
             grid += '<a href="/inv/item/' + vehicle.inv_id
                 + '" title="View ' + vehicle.inv_make + ' ' + vehicle.inv_model
@@ -51,9 +54,15 @@ Util.buildClassificationGrid = async function (data) {
             grid += '<span>$'
                 + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>'
 
-            grid += `<form action="/favorites/add/${vehicle.inv_id}" method="POST">
-                            <button>❤️ Add to favorite</button>
-                    </form>`
+            if (isFavorite) {
+                grid += `<form action="/favorites/remove/${vehicle.inv_id}" method="POST">
+                            <button type="submit">❤️</button>
+                        </form>`
+            } else {
+                grid += `<form action="/favorites/add/${vehicle.inv_id}" method="POST">
+                            <button>🤍</button>
+                        </form>`
+            }
             
             grid += '</div>'
             grid += '</li>'

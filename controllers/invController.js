@@ -1,4 +1,5 @@
 const invModel = require("../models/inventory-model")
+const favoritesModel = require("../models/favorites-model")
 const utilities = require("../utilities/")
 
 const invCont = {}
@@ -9,7 +10,17 @@ const invCont = {}
 invCont.buildByClassificationId = async function (req, res, next) {
     const classification_id = req.params.classificationId
     const data = await invModel.getInventoryByClassificationId(classification_id)
-    const grid = await utilities.buildClassificationGrid(data)
+
+    const account_id = req.session.account?.account_id || null
+    let favoriteIds = []
+
+    if (account_id) {
+        const favorites = await favoritesModel.getFavorites(account_id)
+        favoriteIds = favorites.map(f => f.inv_id)
+    }
+
+    const grid = await utilities.buildClassificationGrid(data, favoriteIds)
+
     let nav = await utilities.getNav()
     const className = data[0].classification_name
 

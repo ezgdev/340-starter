@@ -60,13 +60,13 @@ favoritesController.addToFavorites = async (req, res) => {
             return res.redirect("/favorites")
         }
 
-        if (favorite.alreadyExists) {
-            req.flash("notice", "⚠️ This vehicle is already in your favorites.")
-            return res.redirect(req.get("referer"))
-        }
+        // if (favorite.alreadyExists) {
+        //     req.flash("notice", "⚠️ This vehicle is already in your favorites.")
+        //     return res.redirect(req.get("referer"))
+        // }
 
         req.flash("notice", "✅ Item added to favorites successfully")
-        res.redirect("/favorites")
+        return res.redirect(req.get("referer"))
 
     } catch (error) {
         console.error("Error adding to favorites:", error)
@@ -112,7 +112,7 @@ favoritesController.removeFromFavorites = async (req, res) => {
         }
 
         req.flash("notice", "✅ Item removed from favorites successfully")
-        res.redirect("/favorites")
+        return res.redirect(req.get("referer"))
     } catch (error) {
         console.error("Error removing from favorites:", error)
         res.status(500).send("Internal Server Error")
